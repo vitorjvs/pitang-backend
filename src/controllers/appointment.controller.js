@@ -58,7 +58,7 @@ class Appointment {
             if(scheduledAppointments.length > parseInt(dailyLimit)){ 
               res.status(400).send({ message: 'O limite diário de atendimentos foi alcançado! Por favor, tente marcar em outro dia' });
             }else{
-              if(appointmentByHour.length === parseInt(hourLimit)){ 
+              if(appointmentByHour.length >= parseInt(hourLimit)){ 
                   res.status(400).send({ message: 'Este horário de atendimentos já está totalmente preenchido! Por favor, tente marcar em outro horário' });
               }else{
                 const appointment = await AppointmentModel.create(body);
