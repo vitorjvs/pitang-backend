@@ -13,7 +13,7 @@ class Appointment {
       try {
         const appointment = await AppointmentModel.findById(id);
         if (!appointment) {
-          return res.status(400).send({ message: "Esse agendamento não existe!" });
+          res.status(400).send({ message: "Esse agendamento não existe!" });
         }
         await appointment.remove();
         res.send({ message: "Agendamento removido com sucesso!" });
@@ -55,7 +55,7 @@ class Appointment {
             const scheduledAppointments = await AppointmentModel.find({appointmentDate :  body.appointmentDate}).exec();    
             const appointmentByHour = scheduledAppointments.filter( ({appointmentTime}) => 
             moment(appointmentTime).format('HH:mm') === moment(body.appointmentTime).format('HH:mm'));       
-            if(scheduledAppointments.length > parseInt(dailyLimit)){ 
+            if(scheduledAppointments.length >= parseInt(dailyLimit)){ 
               res.status(400).send({ message: 'O limite diário de atendimentos foi alcançado! Por favor, tente marcar em outro dia' });
             }else{
               if(appointmentByHour.length >= parseInt(hourLimit)){ 
