@@ -49,7 +49,7 @@ class Appointment {
         const body = req.body;
 
         try{
-          if (Object.values(body).filter((val) => val === undefined || val === '').length > 0){ 
+          if (Object.keys(body).length !== 6 || Object.values(body).filter((val) => val === undefined || val === '').length > 0){ 
             res.status(400).send({ message: 'Formulário Incompleto'});
           }else{
             const scheduledAppointments = await AppointmentModel.find({appointmentDate :  body.appointmentDate}).exec();    
